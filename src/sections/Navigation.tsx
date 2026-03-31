@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Menu, X, Search, ShoppingBag } from 'lucide-react';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 interface NavigationProps {
   scrollY: number;
@@ -63,6 +64,8 @@ const Navigation = ({ scrollY }: NavigationProps) => {
 
         {/* Actions */}
         <div className="flex items-center gap-4">
+          <ThemeToggle />
+          
           <button
             className={`p-2 rounded-full transition-all duration-300 hover:bg-white/10 ${
               isScrolled ? 'text-crimson-dark' : 'text-white'
