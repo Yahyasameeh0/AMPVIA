@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Send, CircleCheck as CheckCircle } from 'lucide-react';
 
 /* ─── EmailJS Setup ─────────────────────────────────────────
    1. Go to https://www.emailjs.com — create a FREE account
@@ -53,7 +53,7 @@ const ContactPage = () => {
   };
 
   const info = [
-    { icon: Phone,  title:'Phone',         value:'+20 120 447 0873',                     link:'tel:+201204470873' },
+    { icon: Phone,  title:'Phone',         value:'+20 127 096 7959',                     link:'tel:+201270967959' },
     { icon: Mail,   title:'Email',          value:'yahyasameeh00001111@gmail.com',         link:'mailto:yahyasameeh00001111@gmail.com' },
     { icon: MapPin, title:'Location',       value:'Cairo, Egypt',                         link:'#' },
     { icon: Clock,  title:'Business Hours', value:'Sun–Thu: 9 AM – 6 PM',               link:null },

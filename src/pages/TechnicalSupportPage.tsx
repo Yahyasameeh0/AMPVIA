@@ -33,7 +33,7 @@ const TechnicalSupportPage = () => {
                 <Headphones className="w-8 h-8 text-crimson" />
               </div>
               <h3 className="font-bold text-crimson-dark mb-2">Phone Support</h3>
-              <a href="tel:+201204470873" className="text-gray-600 hover:text-crimson text-sm">+20 120 447 0873</a>
+              <a href="tel:+201270967959" className="text-gray-600 hover:text-crimson text-sm">+20 127 096 7959</a>
             </div>
             <div>
               <div className="inline-flex items-center justify-center w-16 h-16 bg-crimson/10 rounded-2xl mb-4">

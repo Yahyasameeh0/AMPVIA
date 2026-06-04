@@ -29,7 +29,7 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { icon: MessageCircle, href: 'https://wa.me/+201204470873', label: 'WhatsApp' },
+    { icon: MessageCircle, href: 'https://wa.me/+201270967959', label: 'WhatsApp' },
     { icon: Twitter, href: 'https://x.com/Yahyasameeh0', label: 'X (Twitter)' },
     { icon: Facebook, href: 'https://www.facebook.com/profile.php?id=61582950262585', label: 'Facebook' },
     { icon: Linkedin, href: 'https://www.linkedin.com/in/MATRION', label: 'LinkedIn' },
@@ -68,9 +68,9 @@ const Footer = () => {
                 <Mail className="w-4 h-4 flex-shrink-0" />
                 <span className="text-sm">yahyasameeh00001111@gmail.com</span>
               </a>
-              <a href="tel:+201204470873" className="flex items-center gap-3 text-white/70 hover:text-white transition-colors">
+              <a href="tel:+201270967959" className="flex items-center gap-3 text-white/70 hover:text-white transition-colors">
                 <Phone className="w-4 h-4 flex-shrink-0" />
-                <span className="text-sm">+20 120 447 0873</span>
+                <span className="text-sm">+20 127 096 7959</span>
               </a>
               <div className="flex items-center gap-3 text-white/70">
                 <MapPin className="w-4 h-4 flex-shrink-0" />
