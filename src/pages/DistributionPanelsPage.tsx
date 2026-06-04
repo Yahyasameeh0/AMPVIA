@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Shield, Award, Zap, CheckCircle } from 'lucide-react';
+import { Shield, Award, Zap, CircleCheck as CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
@@ -98,13 +98,13 @@ const DistributionPanelsPage = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-crimson-dark mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-crimson-dark dark:text-white mb-4">
               Why Choose Our Distribution Panels?
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               Engineered for excellence with international certifications and proven reliability in thousands of installations.
             </p>
           </div>
@@ -115,8 +115,8 @@ const DistributionPanelsPage = () => {
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-crimson/10 rounded-2xl mb-6 group-hover:bg-crimson group-hover:text-white transition-all duration-300">
                   <feature.icon className="w-8 h-8 text-crimson group-hover:text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-crimson-dark mb-3">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <h3 className="text-xl font-bold text-crimson-dark dark:text-white mb-3">{feature.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -124,29 +124,29 @@ const DistributionPanelsPage = () => {
       </section>
 
       {/* Products Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-crimson-dark mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-crimson-dark dark:text-white mb-4">
               Our Product Range
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               From residential buildings to industrial facilities, we offer the right solution for every application.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {products.map((product, index) => (
-              <div key={index} className="bg-white rounded-3xl p-8 shadow-soft hover:shadow-card transition-all duration-300">
-                <h3 className="text-2xl font-bold text-crimson-dark mb-4">{product.name}</h3>
+              <div key={index} className="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-soft hover:shadow-card transition-all duration-300">
+                <h3 className="text-2xl font-bold text-crimson-dark dark:text-white mb-4">{product.name}</h3>
                 <div className="space-y-2 mb-6">
-                  <p className="text-gray-600"><span className="font-semibold">Capacity:</span> {product.capacity}</p>
-                  <p className="text-gray-600"><span className="font-semibold">Voltage:</span> {product.voltage}</p>
+                  <p className="text-gray-600 dark:text-gray-300"><span className="font-semibold">Capacity:</span> {product.capacity}</p>
+                  <p className="text-gray-600 dark:text-gray-300"><span className="font-semibold">Voltage:</span> {product.voltage}</p>
                   <p className="text-2xl font-bold text-crimson mt-4">{product.price}</p>
                 </div>
                 <ul className="space-y-3 mb-8">
                   {product.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center gap-2 text-gray-600">
+                    <li key={idx} className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
                       <CheckCircle className="w-5 h-5 text-crimson flex-shrink-0" />
                       {feature}
                     </li>

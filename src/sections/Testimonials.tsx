@@ -66,7 +66,7 @@ const Testimonials = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-24 md:py-32 bg-white relative overflow-hidden"
+      className="py-24 md:py-32 bg-white dark:bg-gray-950 relative overflow-hidden"
     >
       {/* Background Decoration */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-crimson/5 rounded-full blur-3xl" />
@@ -84,7 +84,7 @@ const Testimonials = () => {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-crimson-dark mb-4">
             Trusted by Industry Leaders
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">
             Join hundreds of satisfied clients who rely on AMPVIA for their electrical infrastructure needs.
           </p>
         </div>
@@ -99,7 +99,7 @@ const Testimonials = () => {
               }`}
               style={{ transitionDelay: `${index * 0.15}s` }}
             >
-              <div className="bg-white rounded-3xl p-8 shadow-soft h-full card-lift border border-gray-200">
+              <div className="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-soft h-full card-lift border border-gray-200 dark:border-gray-700">
                 {/* Quote Icon */}
                 <div className="absolute -top-4 -left-4 w-10 h-10 bg-crimson rounded-2xl flex items-center justify-center">
                   <Quote className="w-5 h-5 text-white" />
@@ -113,7 +113,7 @@ const Testimonials = () => {
                 </div>
 
                 {/* Content */}
-                <p className="text-gray-600 leading-relaxed mb-8">
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
                   "{testimonial.content}"
                 </p>
 
@@ -126,7 +126,7 @@ const Testimonials = () => {
                   />
                   <div>
                     <h4 className="font-bold text-crimson-dark">{testimonial.name}</h4>
-                    <p className="text-sm text-gray-600">{testimonial.role}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{testimonial.role}</p>
                     <p className="text-xs text-crimson font-medium mt-0.5">{testimonial.company}</p>
                   </div>
                 </div>
@@ -144,17 +144,17 @@ const Testimonials = () => {
         >
           <div className="text-center">
             <div className="text-3xl font-bold text-crimson-dark">4.9</div>
-            <div className="text-sm text-gray-600">Average Rating</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Average Rating</div>
           </div>
           <div className="w-px h-12 bg-crimson/20 hidden sm:block" />
           <div className="text-center">
-            <div className="text-3xl font-bold text-crimson-dark">500+</div>
-            <div className="text-sm text-gray-600">Projects Delivered</div>
+            <div className="text-3xl font-bold text-crimson-dark dark:text-white">500+</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Projects Delivered</div>
           </div>
           <div className="w-px h-12 bg-crimson/20 hidden sm:block" />
           <div className="text-center">
-            <div className="text-3xl font-bold text-crimson-dark">99%</div>
-            <div className="text-sm text-gray-600">Client Retention</div>
+            <div className="text-3xl font-bold text-crimson-dark dark:text-white">99%</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Client Retention</div>
           </div>
         </div>
       </div>

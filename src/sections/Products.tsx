@@ -20,7 +20,7 @@ const Products = () => {
   }, []);
 
   return (
-    <section id="products" ref={ref} className="py-28 md:py-36 bg-gray-50 overflow-hidden">
+    <section id="products" ref={ref} className="py-28 md:py-36 bg-gray-50 dark:bg-gray-900 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Header */}
@@ -41,7 +41,7 @@ const Products = () => {
         <div className="grid md:grid-cols-2 gap-6">
           {products.map((p, i) => (
             <Link to={p.href} key={p.id} data-hover
-              className={`group relative bg-white rounded-3xl overflow-hidden border border-gray-100 card-lift transition-all duration-800 custom-expo ${vis ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              className={`group relative bg-white dark:bg-gray-800 rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-700 card-lift transition-all duration-800 custom-expo ${vis ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
               style={{ transitionDelay: `${0.1 + i * 0.1}s` }}>
 
               {/* Image */}
@@ -62,13 +62,13 @@ const Products = () => {
               {/* Content */}
               <div className="p-7">
                 <h3 className="display-text text-crimson-dark mb-2" style={{ fontSize: '1.35rem' }}>{p.name}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed mb-6">{p.description}</p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-6">{p.description}</p>
 
-                <div className="flex items-center gap-6 mb-6 pt-4 border-t border-gray-100">
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                <div className="flex items-center gap-6 mb-6 pt-4 border-t border-gray-100 dark:border-gray-700">
+                  <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                     <Zap className="w-4 h-4 text-crimson" />{p.voltage}
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                     <Shield className="w-4 h-4 text-crimson" />{p.specs}
                   </div>
                 </div>

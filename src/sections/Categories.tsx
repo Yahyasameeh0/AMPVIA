@@ -20,10 +20,10 @@ const Categories = () => {
   }, []);
 
   return (
-    <section id="categories" ref={ref} className="py-28 md:py-36 bg-white relative overflow-hidden">
+    <section id="categories" ref={ref} className="py-28 md:py-36 bg-white dark:bg-gray-950 relative overflow-hidden">
 
       {/* Decorative large number */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 select-none pointer-events-none"
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 select-none pointer-events-none dark:opacity-[0.03]"
         style={{ fontFamily: '"DM Serif Display", serif', fontSize: 'clamp(10rem, 20vw, 18rem)', lineHeight: 1, color: '#F5F5F5', fontWeight: 400 }}>
         04
       </div>
@@ -39,7 +39,7 @@ const Categories = () => {
               <em className="display-italic">Solutions</em>
             </h2>
           </div>
-          <p className="text-gray-500 max-w-sm leading-relaxed text-sm md:text-base">
+          <p className="text-gray-500 dark:text-gray-400 max-w-sm leading-relaxed text-sm md:text-base">
             Industry-leading electrical products and systems for residential, commercial, and industrial applications.
           </p>
         </div>

@@ -44,16 +44,16 @@ const LightingSolutionsPage = () => {
       </section>
 
       {/* Features */}
-      <section className="py-20">
+      <section className="py-20 bg-white dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, idx) => (
               <div key={idx} className="text-center">
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-crimson/10 rounded-2xl mb-6">
                   <feature.icon className="w-8 h-8 text-crimson" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <h3 className="text-xl font-bold text-crimson-dark dark:text-white mb-3">{feature.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -61,23 +61,23 @@ const LightingSolutionsPage = () => {
       </section>
 
       {/* Products */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-16">Product Categories</h2>
+          <h2 className="text-4xl font-bold text-center text-crimson-dark dark:text-white mb-16">Product Categories</h2>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-3xl">
-              <h3 className="text-2xl font-bold mb-4">Facade Lighting</h3>
-              <p className="text-gray-600 mb-6">Dynamic RGB and white LED systems for architectural exteriors</p>
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-3xl">
+              <h3 className="text-2xl font-bold text-crimson-dark dark:text-white mb-4">Facade Lighting</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">Dynamic RGB and white LED systems for architectural exteriors</p>
               <Link to="/contact" className="text-crimson font-semibold">Get Quote →</Link>
             </div>
-            <div className="bg-white p-8 rounded-3xl">
-              <h3 className="text-2xl font-bold mb-4">Interior Lighting</h3>
-              <p className="text-gray-600 mb-6">Recessed, surface, and suspended LED fixtures for commercial spaces</p>
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-3xl">
+              <h3 className="text-2xl font-bold text-crimson-dark dark:text-white mb-4">Interior Lighting</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">Recessed, surface, and suspended LED fixtures for commercial spaces</p>
               <Link to="/contact" className="text-crimson font-semibold">Get Quote →</Link>
             </div>
-            <div className="bg-white p-8 rounded-3xl">
-              <h3 className="text-2xl font-bold mb-4">Outdoor Lighting</h3>
-              <p className="text-gray-600 mb-6">Weather-resistant LED bollards, poles, and floodlights</p>
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-3xl">
+              <h3 className="text-2xl font-bold text-crimson-dark dark:text-white mb-4">Outdoor Lighting</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">Weather-resistant LED bollards, poles, and floodlights</p>
               <Link to="/contact" className="text-crimson font-semibold">Get Quote →</Link>
             </div>
           </div>

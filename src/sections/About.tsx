@@ -33,7 +33,7 @@ const StatItem = ({ stat, active }: { stat: typeof stats[0]; active: boolean }) 
         <stat.icon className="w-6 h-6 text-crimson group-hover:text-white transition-colors duration-300" />
       </div>
       <div className="counter-num">{count}{stat.suffix}</div>
-      <div className="text-sm text-gray-500 mt-1">{stat.label}</div>
+      <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">{stat.label}</div>
     </div>
   );
 };
@@ -49,7 +49,7 @@ const About = () => {
   }, []);
 
   return (
-    <section id="about" ref={ref} className="py-28 md:py-36 bg-white overflow-hidden">
+    <section id="about" ref={ref} className="py-28 md:py-36 bg-white dark:bg-gray-950 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
@@ -82,10 +82,10 @@ const About = () => {
               in electrical <em className="display-italic">excellence</em>
             </h2>
 
-            <p className="text-gray-600 leading-relaxed mb-5">
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-5">
               Since 1995, AMPVIA has been at the forefront of electrical distribution, lighting solutions, and industrial power systems. We combine cutting-edge technology with decades of expertise to deliver unmatched quality across Egypt and the Middle East.
             </p>
-            <p className="text-gray-500 leading-relaxed mb-10 text-sm">
+            <p className="text-gray-500 dark:text-gray-400 leading-relaxed mb-10 text-sm">
               From residential installations to large-scale industrial projects — comprehensive support with internationally certified products.
             </p>
 
@@ -100,7 +100,7 @@ const About = () => {
         </div>
 
         {/* Stats */}
-        <div className={`grid grid-cols-2 md:grid-cols-4 gap-10 mt-24 pt-16 border-t border-gray-100 transition-all duration-1000 custom-expo ${vis ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        <div className={`grid grid-cols-2 md:grid-cols-4 gap-10 mt-24 pt-16 border-t border-gray-100 dark:border-gray-800 transition-all duration-1000 custom-expo ${vis ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
           style={{ transitionDelay: '0.4s' }}>
           {stats.map(s => <StatItem key={s.label} stat={s} active={vis} />)}
         </div>

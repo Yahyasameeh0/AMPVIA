@@ -35,7 +35,10 @@
 
   html {
     scroll-behavior: smooth;
-    cursor: none;
+  }
+
+  @media (hover: hover) {
+    html, *, *::before, *::after { cursor: none !important; }
   }
 
   body {
@@ -43,44 +46,54 @@
     overflow-x: hidden;
   }
 
-  /* Hide default cursor everywhere */
-  *, *::before, *::after { cursor: none !important; }
-
   /* Custom scrollbar */
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: #f5f5f5; }
   ::-webkit-scrollbar-thumb { background: #640D14; border-radius: 2px; }
   ::-webkit-scrollbar-thumb:hover { background: #4A0A0F; }
+
+  .dark ::-webkit-scrollbar-track { background: #0a0a12; }
+  .dark ::-webkit-scrollbar-thumb { background: #8B1119; }
 }
 
 /* ─── CUSTOM CURSOR ─────────────────────────────────────── */
+@media (hover: none) {
+  .cursor-dot, .cursor-ring { display: none !important; }
+  *, *::before, *::after { cursor: auto !important; }
+}
+
 .cursor-dot {
   width: 8px; height: 8px;
-  background: #640D14;
+  background: #111111;
   border-radius: 50%;
   position: fixed;
   top: 0; left: 0;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
-  mix-blend-mode: multiply;
+  transition: width 0.25s ease, height 0.25s ease, background 0.25s ease, opacity 0.2s ease;
 }
 
 .cursor-ring {
   width: 36px; height: 36px;
-  border: 1.5px solid rgba(100,13,20,0.5);
+  border: 1.5px solid rgba(17,17,17,0.45);
   border-radius: 50%;
   position: fixed;
   top: 0; left: 0;
   pointer-events: none;
   z-index: 9998;
   transform: translate(-50%, -50%);
-  transition: transform 0.12s ease, width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background 0.3s ease;
 }
 
-.cursor-dot.hovered  { width: 12px; height: 12px; background: #4A0A0F; }
-.cursor-ring.hovered { width: 56px; height: 56px; border-color: #640D14; background: rgba(100,13,20,0.06); }
+/* Dark mode cursor → white */
+.dark .cursor-dot  { background: #ffffff; }
+.dark .cursor-ring { border-color: rgba(255,255,255,0.45); }
+
+/* Hover states */
+.cursor-dot.hovered  { width: 12px; height: 12px; }
+.cursor-ring.hovered { width: 54px; height: 54px; background: rgba(17,17,17,0.06); }
+.dark .cursor-ring.hovered { background: rgba(255,255,255,0.08); }
 
 /* ─── LOADING SCREEN ─────────────────────────────────────── */
 .loader {
@@ -237,6 +250,10 @@
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(100,13,20,0.08);
 }
+.dark .nav-glass {
+  background: rgba(10,10,18,0.88);
+  border-color: rgba(255,255,255,0.08);
+}
 
 /* ─── IMAGE ─────────────────────────────────────────────── */
 .image-zoom { overflow: hidden; }
@@ -267,6 +284,7 @@
   line-height: 1;
   color: #640D14;
 }
+.dark .counter-num { color: #ffffff; }
 
 /* ─── POLAROID CARD ─────────────────────────────────────── */
 .polaroid {

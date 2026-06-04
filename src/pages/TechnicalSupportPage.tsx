@@ -25,7 +25,7 @@ const TechnicalSupportPage = () => {
         </div>
       </section>
 
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-8 mb-20 text-center">
             <div>
@@ -47,14 +47,14 @@ const TechnicalSupportPage = () => {
                 <Wrench className="w-8 h-8 text-crimson" />
               </div>
               <h3 className="font-bold text-crimson-dark mb-2">On-Site Service</h3>
-              <p className="text-gray-600 text-sm">Cairo & surroundings</p>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">Cairo & surroundings</p>
             </div>
             <div>
               <div className="inline-flex items-center justify-center w-16 h-16 bg-crimson/10 rounded-2xl mb-4">
                 <Clock className="w-8 h-8 text-crimson" />
               </div>
               <h3 className="font-bold text-crimson-dark mb-2">Response Time</h3>
-              <p className="text-gray-600 text-sm">Within 24 hours</p>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">Within 24 hours</p>
             </div>
           </div>
 
@@ -62,12 +62,12 @@ const TechnicalSupportPage = () => {
             <h2 className="text-3xl font-bold text-crimson-dark mb-10 text-center">Frequently Asked Questions</h2>
             <div className="space-y-4">
               {faq.map((item, i) => (
-                <details key={i} className="border border-gray-200 rounded-2xl overflow-hidden group">
-                  <summary className="flex items-center justify-between p-6 font-semibold text-crimson-dark cursor-pointer hover:bg-gray-50">
+                <details key={i} className="border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden group">
+                  <summary className="flex items-center justify-between p-6 font-semibold text-crimson-dark dark:text-white cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800">
                     {item.q}
                     <span className="ml-4 text-crimson text-2xl leading-none group-open:rotate-45 transition-transform duration-200 inline-block">+</span>
                   </summary>
-                  <p className="px-6 pb-6 text-gray-600">{item.a}</p>
+                  <p className="px-6 pb-6 text-gray-600 dark:text-gray-300">{item.a}</p>
                 </details>
               ))}
             </div>
