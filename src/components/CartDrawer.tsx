@@ -35,15 +35,17 @@ const CartDrawer = () => {
           service_id:  SERVICE_ID,
           template_id: TEMPLATE_ID,
           user_id:     PUBLIC_KEY,
-          template_params: {
-            from_name:  form.name,
-            from_email: form.email,
-            phone:      form.phone,
-            company:    form.company,
-            items_list: itemsList,
-            notes:      form.notes,
-          },
-        }),
+template_params: {
+  from_name: form.name,
+  from_email: form.email,
+  phone: form.phone || '',
+  company: form.company || '',
+  subject: 'New Quote Request',   // عنوان افتراضي لطلبات السلة
+  message: '',                    // فارغ لأن السلة لا تحوي رسالة نصية
+  items_list: itemsList,
+  notes: form.notes || '',
+},   
+     }),
       });
       if (res.ok) { setStep('sent'); clear(); }
       else throw new Error('send failed');

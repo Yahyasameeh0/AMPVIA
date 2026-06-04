@@ -37,11 +37,16 @@ const ContactPage = () => {
           service_id:  EMAILJS_SERVICE_ID,
           template_id: EMAILJS_TEMPLATE_ID,
           user_id:     EMAILJS_PUBLIC_KEY,
-          template_params: {
-            from_name: form.name, from_email: form.email,
-            phone: form.phone,    company: form.company,
-            subject: form.subject, message: form.message,
-          },
+template_params: {
+  from_name: form.name,
+  from_email: form.email,
+  phone: form.phone || '',        // إذا لم يكتب رقم → سلسلة فارغة
+  company: form.company || '',
+  subject: form.subject,
+  message: form.message,
+  items_list: '',                 // دائمًا فارغة هنا
+  notes: '',                      // دائمًا فارغة
+},
         }),
       });
       if (!res.ok) throw new Error();
