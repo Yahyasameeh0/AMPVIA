@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Mail, Phone, MapPin, Clock, Send, CircleCheck as CheckCircle } from 'lucide-react';
 
 /* ─── EmailJS Setup ─────────────────────────────────────────
@@ -20,9 +21,11 @@ const EMAILJS_TEMPLATE_ID = 'template_h1nbjck';
 const EMAILJS_PUBLIC_KEY  = 'k4yDYY-ZoDExQJj7T';
 
 const ContactPage = () => {
+  const [searchParams] = useSearchParams();
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
-  const [form, setForm]     = useState({ name:'', email:'', phone:'', company:'', subject:'', message:'' });
+  const prefillEmail = searchParams.get('email') || '';
+  const [form, setForm]     = useState({ name:'', email: prefillEmail, phone:'', company:'', subject:'', message:'' });
   const [status, setStatus] = useState<'idle'|'sending'|'sent'|'error'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {

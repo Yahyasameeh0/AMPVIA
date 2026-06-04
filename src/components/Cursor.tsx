@@ -1,18 +1,24 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
+
+const isTouchDevice = () =>
+  typeof window !== 'undefined' &&
+  (window.matchMedia('(hover: none)').matches ||
+   window.matchMedia('(pointer: coarse)').matches);
 
 const Cursor = () => {
   const dotRef  = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    // hide on touch devices
-    if (window.matchMedia('(hover: none)').matches) return;
-    setVisible(true);
+    if (isTouchDevice()) return;
 
     const dot  = dotRef.current;
     const ring = ringRef.current;
     if (!dot || !ring) return;
+
+    // show elements
+    dot.style.opacity  = '1';
+    ring.style.opacity = '1';
 
     let mx = -200, my = -200;
     let rx = -200, ry = -200;
@@ -39,8 +45,8 @@ const Cursor = () => {
         el.addEventListener('mouseleave', onLeave);
       });
     };
-    attachHover();
 
+    attachHover();
     window.addEventListener('mousemove', onMove);
     raf = requestAnimationFrame(tick);
 
@@ -54,12 +60,12 @@ const Cursor = () => {
     };
   }, []);
 
-  if (!visible) return null;
+  if (isTouchDevice()) return null;
 
   return (
     <>
-      <div ref={dotRef}  className="cursor-dot"  />
-      <div ref={ringRef} className="cursor-ring" />
+      <div ref={dotRef}  className="cursor-dot"  style={{ opacity: 0 }} />
+      <div ref={ringRef} className="cursor-ring" style={{ opacity: 0 }} />
     </>
   );
 };
