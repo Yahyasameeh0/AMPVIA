@@ -57,7 +57,7 @@ const Hero = () => {
         style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col justify-center min-h-screen px-6 lg:px-20" style={{ opacity: fade }}>
+      <div className="relative z-10 flex flex-col justify-center min-h-screen px-6 lg:px-20 pt-24 pb-16" style={{ opacity: fade }}>
 
         {/* Label */}
         <div className={`mb-8 transition-all duration-1000 custom-expo ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
