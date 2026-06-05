@@ -8,9 +8,13 @@ const Hero = () => {
 
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 100);
-    const onScroll = () => setScrollY(window.scrollY);
+    let rafId: number;
+    const onScroll = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => setScrollY(window.scrollY));
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => { clearTimeout(t); window.removeEventListener('scroll', onScroll); };
+    return () => { clearTimeout(t); window.removeEventListener('scroll', onScroll); cancelAnimationFrame(rafId); };
   }, []);
 
   const parallax = scrollY * 0.28;

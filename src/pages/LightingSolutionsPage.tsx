@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { Lightbulb, Award, Zap, Leaf } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { usePageTitle } from '../hooks/use-page-title';
 
 const LightingSolutionsPage = () => {
+  usePageTitle('Lighting Solutions | AMPVIA');
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

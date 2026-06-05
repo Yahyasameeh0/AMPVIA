@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { DarkProvider } from './context/DarkContext';
@@ -8,59 +8,81 @@ import Cursor from './components/Cursor';
 import Loader from './components/Loader';
 import ScrollProgress from './components/ScrollProgress';
 import CartDrawer from './components/CartDrawer';
+import NotFoundPage from './pages/NotFoundPage';
 
-import HomePage from './pages/HomePage';
-import DistributionPanelsPage from './pages/DistributionPanelsPage';
-import LightingSolutionsPage from './pages/LightingSolutionsPage';
-import CablesWiringPage from './pages/CablesWiringPage';
-import IndustrialSystemsPage from './pages/IndustrialSystemsPage';
-import ContactPage from './pages/ContactPage';
-import MissionPage from './pages/MissionPage';
-import CareersPage from './pages/CareersPage';
-import CertificationsPage from './pages/CertificationsPage';
-import TechnicalSupportPage from './pages/TechnicalSupportPage';
-import DocumentationPage from './pages/DocumentationPage';
-import WarrantyPage from './pages/WarrantyPage';
-import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
-import TermsPage from './pages/TermsPage';
-import QualityStandardsPage from './pages/QualityStandardsPage';
+const HomePage              = lazy(() => import('./pages/HomePage'));
+const DistributionPanelsPage = lazy(() => import('./pages/DistributionPanelsPage'));
+const LightingSolutionsPage  = lazy(() => import('./pages/LightingSolutionsPage'));
+const CablesWiringPage       = lazy(() => import('./pages/CablesWiringPage'));
+const IndustrialSystemsPage  = lazy(() => import('./pages/IndustrialSystemsPage'));
+const ContactPage             = lazy(() => import('./pages/ContactPage'));
+const MissionPage             = lazy(() => import('./pages/MissionPage'));
+const CareersPage             = lazy(() => import('./pages/CareersPage'));
+const CertificationsPage      = lazy(() => import('./pages/CertificationsPage'));
+const TechnicalSupportPage    = lazy(() => import('./pages/TechnicalSupportPage'));
+const DocumentationPage       = lazy(() => import('./pages/DocumentationPage'));
+const WarrantyPage             = lazy(() => import('./pages/WarrantyPage'));
+const PrivacyPolicyPage       = lazy(() => import('./pages/PrivacyPolicyPage'));
+const TermsPage                = lazy(() => import('./pages/TermsPage'));
+const QualityStandardsPage    = lazy(() => import('./pages/QualityStandardsPage'));
+
+const PageLoader = () => (
+  <div className="min-h-[60vh] flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-crimson border-t-transparent rounded-full animate-spin" />
+  </div>
+);
 
 function Inner() {
   const [scrollY, setScrollY] = useState(0);
   const [loaded,  setLoaded]  = useState(false);
 
   useEffect(() => {
-    const h = () => setScrollY(window.scrollY);
+    let rafId: number;
+    let lastScrollY = 0;
+    const h = () => {
+      lastScrollY = window.scrollY;
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => setScrollY(lastScrollY));
+    };
     window.addEventListener('scroll', h, { passive: true });
-    return () => window.removeEventListener('scroll', h);
+    return () => {
+      window.removeEventListener('scroll', h);
+      cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return (
     <>
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-crimson focus:text-white focus:rounded-lg focus:text-sm focus:font-semibold">
+        Skip to main content
+      </a>
       <Cursor />
       <ScrollProgress />
       {!loaded && <Loader onDone={() => setLoaded(true)} />}
       <CartDrawer />
 
-      <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white overflow-x-hidden transition-colors duration-300">
+      <div id="main-content" className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white overflow-x-hidden transition-colors duration-300">
         <Navigation scrollY={scrollY} />
-        <Routes>
-          <Route path="/"                    element={<HomePage />} />
-          <Route path="/distribution-panels" element={<DistributionPanelsPage />} />
-          <Route path="/lighting-solutions"  element={<LightingSolutionsPage />} />
-          <Route path="/cables-wiring"       element={<CablesWiringPage />} />
-          <Route path="/industrial-systems"  element={<IndustrialSystemsPage />} />
-          <Route path="/mission"             element={<MissionPage />} />
-          <Route path="/careers"             element={<CareersPage />} />
-          <Route path="/certifications"      element={<CertificationsPage />} />
-          <Route path="/technical-support"   element={<TechnicalSupportPage />} />
-          <Route path="/contact"             element={<ContactPage />} />
-          <Route path="/documentation"       element={<DocumentationPage />} />
-          <Route path="/warranty"            element={<WarrantyPage />} />
-          <Route path="/privacy-policy"      element={<PrivacyPolicyPage />} />
-          <Route path="/terms"               element={<TermsPage />} />
-          <Route path="/quality-standards"   element={<QualityStandardsPage />} />
-        </Routes>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/"                    element={<HomePage />} />
+            <Route path="/distribution-panels" element={<DistributionPanelsPage />} />
+            <Route path="/lighting-solutions"  element={<LightingSolutionsPage />} />
+            <Route path="/cables-wiring"       element={<CablesWiringPage />} />
+            <Route path="/industrial-systems"  element={<IndustrialSystemsPage />} />
+            <Route path="/mission"             element={<MissionPage />} />
+            <Route path="/careers"             element={<CareersPage />} />
+            <Route path="/certifications"      element={<CertificationsPage />} />
+            <Route path="/technical-support"   element={<TechnicalSupportPage />} />
+            <Route path="/contact"             element={<ContactPage />} />
+            <Route path="/documentation"       element={<DocumentationPage />} />
+            <Route path="/warranty"            element={<WarrantyPage />} />
+            <Route path="/privacy-policy"      element={<PrivacyPolicyPage />} />
+            <Route path="/terms"               element={<TermsPage />} />
+            <Route path="/quality-standards"   element={<QualityStandardsPage />} />
+            <Route path="*"                    element={<NotFoundPage />} />
+          </Routes>
+        </Suspense>
         <Footer />
       </div>
     </>

@@ -57,7 +57,7 @@ const About = () => {
           <div className={`relative transition-all duration-1000 custom-expo ${vis ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
             {/* Main image */}
             <div className="relative rounded-3xl overflow-hidden shadow-deep aspect-[4/3]">
-              <img src="/about-facility.jpg" alt="AMPVIA facility" className="w-full h-full object-cover" />
+              <img src="/about-facility.jpg" alt="AMPVIA facility" className="w-full h-full object-cover" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-crimson-dark/30 to-transparent" />
             </div>
 

@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { Shield } from 'lucide-react';
+import { usePageTitle } from '../hooks/use-page-title';
 
 const PrivacyPolicyPage = () => {
+  usePageTitle('Privacy Policy | AMPVIA');
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

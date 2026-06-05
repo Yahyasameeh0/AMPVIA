@@ -2,8 +2,10 @@ import { useEffect } from 'react';
 import { Shield, Award, Zap, CircleCheck as CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { usePageTitle } from '../hooks/use-page-title';
 
 const DistributionPanelsPage = () => {
+  usePageTitle('Distribution Panels | AMPVIA');
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

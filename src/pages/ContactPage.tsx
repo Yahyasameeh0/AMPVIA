@@ -1,28 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Mail, Phone, MapPin, Clock, Send, CircleCheck as CheckCircle } from 'lucide-react';
-
-/* ─── EmailJS Setup ─────────────────────────────────────────
-   1. Go to https://www.emailjs.com — create a FREE account
-   2. Add Service: Email Services → Connect Gmail (or any email)
-   3. Create Template:
-      Subject: New Contact Message from {{from_name}}
-      Body:    Name: {{from_name}}
-               Email: {{from_email}}
-               Phone: {{phone}}
-               Company: {{company}}
-               Subject: {{subject}}
-               Message: {{message}}
-   4. Get your IDs from Account → API Keys
-   5. Replace the 3 strings below
-───────────────────────────────────────────────────────────── */
-const EMAILJS_SERVICE_ID  = 'Ampviacontact';
-const EMAILJS_TEMPLATE_ID = 'template_h1nbjck';
-const EMAILJS_PUBLIC_KEY  = 'k4yDYY-ZoDExQJj7T';
+import { sendEmail, FALLBACK_EMAIL } from '../lib/emailjs';
 
 const ContactPage = () => {
   const [searchParams] = useSearchParams();
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    document.title = 'Contact Us | AMPVIA';
+  }, []);
 
   const prefillEmail = searchParams.get('email') || '';
   const [form, setForm]     = useState({ name:'', email: prefillEmail, phone:'', company:'', subject:'', message:'' });
@@ -32,45 +18,34 @@ const ContactPage = () => {
     e.preventDefault();
     setStatus('sending');
 
-    try {
-      const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          service_id:  EMAILJS_SERVICE_ID,
-          template_id: EMAILJS_TEMPLATE_ID,
-          user_id:     EMAILJS_PUBLIC_KEY,
-          template_params: {
-            from_name:  form.name,
-            from_email: form.email,
-            phone:      form.phone || '',
-            company:    form.company || '',
-            subject:    form.subject,
-            message:    form.message,
-            items_list: '',
-            notes:      '',
-          },
-        }),
-      });
-      if (!res.ok) throw new Error();
+    const ok = await sendEmail({
+      from_name:  form.name,
+      from_email: form.email,
+      phone:      form.phone || '',
+      company:    form.company || '',
+      subject:    form.subject,
+      message:    form.message,
+    });
+
+    if (ok) {
       setStatus('sent');
       setForm({ name:'', email:'', phone:'', company:'', subject:'', message:'' });
-    } catch {
+    } else {
       setStatus('error');
     }
   };
 
   const info = [
     { icon: Phone,  title:'Phone',         value:'+20 127 096 7959',                     link:'tel:+201270967959' },
-    { icon: Mail,   title:'Email',          value:'yahyasameeh00001111@gmail.com',         link:'mailto:yahyasameeh00001111@gmail.com' },
+    { icon: Mail,   title:'Email',          value:'yahyasameeh00001111@gmail.com',         link:`mailto:${FALLBACK_EMAIL}` },
     { icon: MapPin, title:'Location',       value:'Cairo, Egypt',                         link:'#' },
     { icon: Clock,  title:'Business Hours', value:'Sun–Thu: 9 AM – 6 PM',               link:null },
   ];
 
   const field = (label: string, key: keyof typeof form, type='text', required=false, half=false) => (
     <div className={half ? '' : 'md:col-span-2'} key={key}>
-      <label className="block text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2">{label}</label>
-      <input type={type} required={required} value={form[key]}
+      <label htmlFor={`contact-${key}`} className="block text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2">{label}</label>
+      <input id={`contact-${key}`} type={type} required={required} value={form[key]} maxLength={200}
         onChange={e => setForm(p => ({ ...p, [key]: e.target.value }))}
         className="w-full px-5 py-3.5 text-sm bg-gray-50 dark:bg-gray-800 border border-transparent focus:border-crimson focus:bg-white dark:focus:bg-gray-900 rounded-xl outline-none transition-all duration-200 dark:text-white" />
     </div>
@@ -119,7 +94,7 @@ const ContactPage = () => {
               <div className="flex flex-col items-center gap-4 py-12 text-center">
                 <CheckCircle className="w-16 h-16 text-green-500" />
                 <h3 className="text-xl font-bold text-crimson-dark dark:text-white">Message Sent!</h3>
-                <p className="text-gray-500 dark:text-gray-400">We'll reply to {form.email || 'you'} within 24 hours.</p>
+                <p className="text-gray-500 dark:text-gray-400">We'll reply within 24 hours.</p>
                 <button onClick={() => setStatus('idle')} className="mt-4 px-6 py-3 bg-crimson text-white font-semibold rounded-full hover:bg-crimson-dark transition-colors">
                   Send Another
                 </button>
@@ -131,21 +106,21 @@ const ContactPage = () => {
                 {field('Phone',       'phone','tel', false,true)}
                 {field('Company',     'company','text',false,true)}
                 <div className="md:col-span-2">
-                  <label className="block text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2">Subject *</label>
-                  <input type="text" required value={form.subject}
+                  <label htmlFor="contact-subject" className="block text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2">Subject *</label>
+                  <input id="contact-subject" type="text" required value={form.subject} maxLength={200}
                     onChange={e => setForm(p => ({ ...p, subject: e.target.value }))}
                     className="w-full px-5 py-3.5 text-sm bg-gray-50 dark:bg-gray-800 border border-transparent focus:border-crimson focus:bg-white dark:focus:bg-gray-900 rounded-xl outline-none transition-all dark:text-white" />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2">Message *</label>
-                  <textarea required rows={5} value={form.message}
+                  <label htmlFor="contact-message" className="block text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2">Message *</label>
+                  <textarea id="contact-message" required rows={5} value={form.message} maxLength={5000}
                     onChange={e => setForm(p => ({ ...p, message: e.target.value }))}
                     className="w-full px-5 py-3.5 text-sm bg-gray-50 dark:bg-gray-800 border border-transparent focus:border-crimson focus:bg-white dark:focus:bg-gray-900 rounded-xl outline-none transition-all resize-none dark:text-white" />
                 </div>
 
                 {status === 'error' && (
                   <p className="md:col-span-2 text-red-500 text-sm">
-                    Could not send. Please email us directly at <a href="mailto:yahyasameeh00001111@gmail.com" className="underline">yahyasameeh00001111@gmail.com</a>
+                    Could not send. Please email us directly at <a href={`mailto:${FALLBACK_EMAIL}`} className="underline">{FALLBACK_EMAIL}</a>
                   </p>
                 )}
 

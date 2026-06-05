@@ -53,7 +53,7 @@ const Categories = () => {
 
               {/* Image */}
               <div className="absolute inset-0 image-zoom">
-                <img src={cat.image} alt={cat.name} className="w-full h-full object-cover" />
+                <img src={cat.image} alt={cat.name} className="w-full h-full object-cover" loading="lazy" />
               </div>
 
               {/* Overlay */}

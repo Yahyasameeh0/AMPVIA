@@ -123,6 +123,7 @@ const Testimonials = () => {
                     src={testimonial.avatar}
                     alt={testimonial.name}
                     className="w-14 h-14 rounded-full object-cover ring-2 ring-crimson/20"
+                    loading="lazy"
                   />
                   <div>
                     <h4 className="font-bold text-crimson-dark">{testimonial.name}</h4>

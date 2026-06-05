@@ -40,6 +40,7 @@ const CTA = () => {
           src="/cta-electrical-grid.jpg"
           alt="Modern electrical infrastructure and lighting systems"
           className="w-full h-full object-cover"
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-crimson-dark/90 via-crimson-dark/60 to-crimson-dark/40" />
       </div>
@@ -104,7 +105,7 @@ const CTA = () => {
           <div className="flex -space-x-3">
             {['/avatar-ahmed.jpg', '/avatar-mohamed.jpg', '/avatar-fatma.jpg'].map((avatar, i) => (
               <img key={i} src={avatar} alt="Client"
-                className="w-10 h-10 rounded-full border-2 border-crimson-dark object-cover" />
+                className="w-10 h-10 rounded-full border-2 border-crimson-dark object-cover" loading="lazy" />
             ))}
           </div>
           <div className="text-white/80 text-sm">

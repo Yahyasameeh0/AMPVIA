@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { FileText, Download } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { usePageTitle } from '../hooks/use-page-title';
 
 const DocumentationPage = () => {
+  usePageTitle('Documentation | AMPVIA');
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   const docs = [

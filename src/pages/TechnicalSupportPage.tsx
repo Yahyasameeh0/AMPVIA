@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { Headphones, FileText, Wrench, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { usePageTitle } from '../hooks/use-page-title';
 
 const TechnicalSupportPage = () => {
+  usePageTitle('Technical Support | AMPVIA');
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   const faq = [

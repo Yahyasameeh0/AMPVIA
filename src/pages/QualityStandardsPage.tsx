@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
-import { Shield, CheckCircle, Zap } from 'lucide-react';
+import { Shield, CircleCheck as CheckCircle, Zap } from 'lucide-react';
+import { usePageTitle } from '../hooks/use-page-title';
 
 const QualityStandardsPage = () => {
+  usePageTitle('Quality Standards | AMPVIA');
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (

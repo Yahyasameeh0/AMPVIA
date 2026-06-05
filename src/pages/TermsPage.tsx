@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
+import { usePageTitle } from '../hooks/use-page-title';
 
 const TermsPage = () => {
+  usePageTitle('Terms of Service | AMPVIA');
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (

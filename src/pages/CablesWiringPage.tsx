@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
-import { Zap, CheckCircle } from 'lucide-react';
+import { Zap, CircleCheck as CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { usePageTitle } from '../hooks/use-page-title';
 
 const CablesWiringPage = () => {
+  usePageTitle('Cables & Wiring | AMPVIA');
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   const products = [

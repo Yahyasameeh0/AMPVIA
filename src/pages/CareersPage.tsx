@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { Briefcase } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { usePageTitle } from '../hooks/use-page-title';
 
 const CareersPage = () => {
+  usePageTitle('Careers | AMPVIA');
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

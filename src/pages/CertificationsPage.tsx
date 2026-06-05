@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
-import { Award, CheckCircle } from 'lucide-react';
+import { Award, CircleCheck as CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { usePageTitle } from '../hooks/use-page-title';
 
 const CertificationsPage = () => {
+  usePageTitle('Certifications | AMPVIA');
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   const certs = [

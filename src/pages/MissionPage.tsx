@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { Target, Users, Lightbulb, Award } from 'lucide-react';
+import { usePageTitle } from '../hooks/use-page-title';
 
 const MissionPage = () => {
+  usePageTitle('Our Mission | AMPVIA');
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
