@@ -6,37 +6,17 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 17%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 17%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 17%;
-    --primary: 353 80% 22%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 17%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 46%;
-    --accent: 0 0% 96%;
-    --accent-foreground: 0 0% 17%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 353 80% 22%;
-    --radius: 0.75rem;
     --crimson: #640D14;
     --crimson-dark: #4A0A0F;
     --crimson-light: #8B1119;
   }
 
-  * { @apply border-border; }
+  * { border-color: theme('colors.gray.DEFAULT'); }
 
   html { scroll-behavior: smooth; }
 
   body {
-    @apply bg-white text-foreground font-sans antialiased;
+    @apply bg-white text-gray-900 font-sans antialiased;
     overflow-x: hidden;
   }
 
@@ -333,6 +313,16 @@
 .animate-pulse-ring { animation: pulseRing 2s ease-out infinite; }
 .animate-fade-up    { animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards; }
 .custom-expo        { transition-timing-function: cubic-bezier(0.16,1,0.3,1); }
+
+/* ─── PAGE TRANSITIONS ──────────────────────────────────── */
+.page-transition {
+  animation: pageEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
 /* ─── STAGGER ────────────────────────────────────────────── */
 .stagger-1 { animation-delay: 0.1s; }
