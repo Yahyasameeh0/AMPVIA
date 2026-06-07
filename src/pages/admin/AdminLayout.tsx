@@ -1,26 +1,34 @@
-import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { Outlet, NavLink, useNavigate, Navigate } from 'react-router-dom';
 import { LayoutDashboard, FileText, Package, FolderOpen, LogOut, Menu, X } from 'lucide-react';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 import { useState } from 'react';
 
 const navItems = [
-  { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
-  { to: '/admin/quotes', label: 'Quotes', icon: FileText, end: false },
-  { to: '/admin/products', label: 'Products', icon: Package, end: false },
-  { to: '/admin/projects', label: 'Projects', icon: FolderOpen, end: false },
+  { to: '/admin',          label: 'Dashboard', icon: LayoutDashboard, end: true },
+  { to: '/admin/quotes',   label: 'Quotes',    icon: FileText,        end: false },
+  { to: '/admin/products', label: 'Products',  icon: Package,         end: false },
+  { to: '/admin/projects', label: 'Projects',  icon: FolderOpen,      end: false },
 ];
 
 const AdminLayout = () => {
-  const { admin, logout } = useAdminAuth();
+  const { admin, loading, logout } = useAdminAuth();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-950 flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-crimson border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (!admin) return <Navigate to="/admin/login" replace />;
 
   const handleLogout = () => {
     logout();
     navigate('/admin/login');
   };
-
-  if (!admin) return null;
 
   return (
     <div className="min-h-screen bg-gray-950 flex">
@@ -53,7 +61,7 @@ const AdminLayout = () => {
                 }`
               }
             >
-              <item.icon className="w-4.5 h-4.5" />
+              <item.icon className="w-5 h-5" />
               {item.label}
             </NavLink>
           ))}
@@ -68,7 +76,7 @@ const AdminLayout = () => {
             onClick={handleLogout}
             className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-400 hover:text-red-400 hover:bg-gray-800 transition-colors w-full"
           >
-            <LogOut className="w-4.5 h-4.5" />
+            <LogOut className="w-5 h-5" />
             Sign Out
           </button>
         </div>
@@ -77,7 +85,7 @@ const AdminLayout = () => {
       {/* Main content */}
       <div className="flex-1 flex flex-col min-w-0">
         <header className="h-16 bg-gray-900 border-b border-gray-800 flex items-center px-6 gap-4">
-          <button onClick={() => setSidebarOpen(true)} className="lg:hidden p-2 text-gray-400 hover:text-white">
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="lg:hidden p-2 text-gray-400 hover:text-white">
             {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
           <span className="text-sm text-gray-400">Welcome back, <span className="text-white">{admin.name}</span></span>

@@ -196,7 +196,7 @@ const Destinations = () => {
             }`}
             style={{ transitionDelay: `${index * 0.1}s` }}
           >
-            <a href="#" className="block group">
+            <div className="block group">
               {/* Project Card */}
               <div className="polaroid rounded-sm rotate-0 hover:rotate-1 transition-transform duration-300">
                 {/* Image */}
@@ -232,17 +232,11 @@ const Destinations = () => {
                   </p>
                 </div>
               </div>
-            </a>
+            </div>
           </div>
         ))}
       </div>
 
-      {/* Hide scrollbar style */}
-      <style>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
     </section>
   );
 };

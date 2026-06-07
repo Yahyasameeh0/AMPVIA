@@ -49,7 +49,7 @@ const Categories = () => {
           {categories.map((cat, i) => (
             <Link to={cat.href} key={cat.name} data-hover
               className={`group relative block rounded-2xl overflow-hidden transition-all duration-800 custom-expo ${vis ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
-              style={{ transitionDelay: `${0.1 + i * 0.08}s`, aspectRatio: i === 0 || i === 3 ? '3/4' : '3/4' }}>
+              style={{ transitionDelay: `${0.1 + i * 0.08}s`, aspectRatio: '3/4' }}>
 
               {/* Image */}
               <div className="absolute inset-0 image-zoom">

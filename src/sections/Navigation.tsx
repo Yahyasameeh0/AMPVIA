@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X, Search, ShoppingBag, Moon, Sun, ChevronDown, MessageSquare } from 'lucide-react';
+import { Menu, X, Search, ShoppingBag, Moon, Sun, ChevronDown, MessageSquare, Hop as Home, Zap, Building2, Phone } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useDark } from '../context/DarkContext';
@@ -69,7 +69,7 @@ const Navigation = ({ scrollY }: NavigationProps) => {
     setMegaOpen(name);
   };
 
-  const handleMegaLeave = (_e?: React.MouseEvent) => {
+  const handleMegaLeave = () => {
     megaTimer.current = setTimeout(() => setMegaOpen(null), 150);
   };
 
@@ -322,39 +322,35 @@ const Navigation = ({ scrollY }: NavigationProps) => {
       {/* Mobile bottom bar */}
       <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden nav-glass border-t border-gray-200/10 safe-area-bottom">
         <div className="flex items-center justify-around h-16">
-          {[
-            { name: 'Home', href: '/', icon: '🏠' },
-            { name: 'Products', href: '/distribution-panels', icon: '⚡' },
-            { name: 'Projects', href: '/#destinations', icon: '🏗' },
-            { name: 'Contact', href: '/contact', icon: '📞' },
-          ].map(item => (
-            item.href.startsWith('/#') ? (
+          {([
+            { name: 'Home',     href: '/',                  Icon: Home,      isAnchor: false },
+            { name: 'Products', href: '/distribution-panels', Icon: Zap,     isAnchor: false },
+            { name: 'Projects', href: '/#destinations',      Icon: Building2, isAnchor: true  },
+            { name: 'Contact',  href: '/contact',            Icon: Phone,     isAnchor: false },
+          ] as const).map(item => {
+            const isActive = item.isAnchor
+              ? isHome
+              : location.pathname === item.href;
+            const cls = `flex flex-col items-center justify-center gap-0.5 px-3 py-1 rounded-lg transition-colors ${
+              isActive ? 'text-crimson' : 'text-gray-500 dark:text-gray-400'
+            }`;
+            return item.isAnchor ? (
               <a
                 key={item.name}
                 href={item.href}
                 onClick={e => { e.preventDefault(); handleAnchor(item.href); }}
-                className={`flex flex-col items-center justify-center gap-0.5 px-3 py-1 rounded-lg transition-colors ${
-                  isHome ? 'text-crimson' : 'text-gray-500 dark:text-gray-400'
-                }`}
+                className={cls}
               >
-                <span className="text-lg">{item.icon}</span>
+                <item.Icon className="w-5 h-5" />
                 <span className="text-[10px] font-medium">{item.name}</span>
               </a>
             ) : (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={`flex flex-col items-center justify-center gap-0.5 px-3 py-1 rounded-lg transition-colors ${
-                  location.pathname === item.href
-                    ? 'text-crimson'
-                    : 'text-gray-500 dark:text-gray-400'
-                }`}
-              >
-                <span className="text-lg">{item.icon}</span>
+              <Link key={item.name} to={item.href} className={cls}>
+                <item.Icon className="w-5 h-5" />
                 <span className="text-[10px] font-medium">{item.name}</span>
               </Link>
-            )
-          ))}
+            );
+          })}
         </div>
       </div>
     </>

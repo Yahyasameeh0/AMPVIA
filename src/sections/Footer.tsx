@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
   const footerLinks = {
     company: [
-      { name: 'About Us', href: '/#about', internal: false },
+      { name: 'About Us', href: '/#about', internal: true },
       { name: 'Our Mission', href: '/mission', internal: true },
       { name: 'Careers', href: '/careers', internal: true },
       { name: 'Certifications', href: '/certifications', internal: true },

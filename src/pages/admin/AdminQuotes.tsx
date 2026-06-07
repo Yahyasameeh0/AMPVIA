@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useEffect, useState, useCallback } from 'react';
 import { Mail, Phone, Building, Trash2, ChevronDown } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAdminAuth } from '../../context/AdminAuthContext';
@@ -21,8 +20,8 @@ interface Quote {
 }
 
 const STATUS_COLORS: Record<string, string> = {
-  new: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-  read: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
+  new:    'bg-blue-500/10 text-blue-400 border-blue-500/20',
+  read:   'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
   quoted: 'bg-green-500/10 text-green-400 border-green-500/20',
   closed: 'bg-gray-500/10 text-gray-400 border-gray-500/20',
 };
@@ -36,28 +35,43 @@ const AdminQuotes = () => {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<string>('all');
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [opError, setOpError] = useState<string | null>(null);
 
-  const load = async () => {
+  const load = useCallback(async () => {
+    setLoading(true);
     let query = supabase.from('quote_requests').select('*').order('created_at', { ascending: false });
     if (filter !== 'all') query = query.eq('status', filter);
-    const { data } = await query;
-    setQuotes(data || []);
+    const { data, error } = await query;
+    if (error) {
+      setOpError('Failed to load quotes.');
+    } else {
+      setQuotes(data || []);
+    }
     setLoading(false);
-  };
+  }, [filter]);
 
-  useEffect(() => { if (admin) load(); }, [admin, filter]);
-
-  if (!admin) return <Navigate to="/admin/login" replace />;
+  useEffect(() => { if (admin) load(); }, [admin, load]);
 
   const updateStatus = async (id: string, status: string) => {
-    await supabase.from('quote_requests').update({ status }).eq('id', id);
-    setQuotes(prev => prev.map(q => q.id === id ? { ...q, status } : q));
+    setOpError(null);
+    const { error } = await supabase.from('quote_requests').update({ status }).eq('id', id);
+    if (error) {
+      setOpError('Failed to update status. Please try again.');
+    } else {
+      setQuotes(prev => prev.map(q => q.id === id ? { ...q, status } : q));
+    }
   };
 
   const deleteQuote = async (id: string) => {
-    if (!confirm('Delete this quote?')) return;
-    await supabase.from('quote_requests').delete().eq('id', id);
-    setQuotes(prev => prev.filter(q => q.id !== id));
+    if (!confirm('Delete this quote request permanently?')) return;
+    setOpError(null);
+    const { error } = await supabase.from('quote_requests').delete().eq('id', id);
+    if (error) {
+      setOpError('Failed to delete quote. Please try again.');
+    } else {
+      setQuotes(prev => prev.filter(q => q.id !== id));
+      if (expanded === id) setExpanded(null);
+    }
   };
 
   return (
@@ -67,7 +81,7 @@ const AdminQuotes = () => {
         <div className="relative">
           <select
             value={filter}
-            onChange={e => { setFilter(e.target.value); setLoading(true); }}
+            onChange={e => setFilter(e.target.value)}
             className="appearance-none bg-gray-800 border border-gray-700 text-sm text-white rounded-xl px-4 py-2 pr-8 focus:outline-none focus:border-crimson"
           >
             <option value="all">All Status</option>
@@ -76,6 +90,12 @@ const AdminQuotes = () => {
           <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
         </div>
       </div>
+
+      {opError && (
+        <div className="px-4 py-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm">
+          {opError}
+        </div>
+      )}
 
       {loading ? (
         <div className="flex items-center justify-center py-20">
@@ -92,9 +112,9 @@ const AdminQuotes = () => {
                 className="w-full flex items-center justify-between px-5 py-4 text-left"
               >
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 flex-wrap">
                     <p className="text-sm font-medium text-white truncate">{q.name}</p>
-                    <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-full border uppercase ${STATUS_COLORS[q.status] || STATUS_COLORS.new}`}>
+                    <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-full border uppercase ${STATUS_COLORS[q.status] ?? STATUS_COLORS.new}`}>
                       {q.status}
                     </span>
                     <span className="text-[10px] px-2 py-0.5 rounded-full bg-gray-800 text-gray-400">{q.source}</span>
@@ -111,10 +131,10 @@ const AdminQuotes = () => {
                 <div className="px-5 pb-5 border-t border-gray-800 pt-4 space-y-3">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                     <div className="flex items-center gap-2 text-gray-400">
-                      <Mail className="w-4 h-4" /> {q.email}
+                      <Mail className="w-4 h-4 flex-shrink-0" /> {q.email}
                     </div>
-                    {q.phone && <div className="flex items-center gap-2 text-gray-400"><Phone className="w-4 h-4" /> {q.phone}</div>}
-                    {q.company && <div className="flex items-center gap-2 text-gray-400"><Building className="w-4 h-4" /> {q.company}</div>}
+                    {q.phone && <div className="flex items-center gap-2 text-gray-400"><Phone className="w-4 h-4 flex-shrink-0" /> {q.phone}</div>}
+                    {q.company && <div className="flex items-center gap-2 text-gray-400"><Building className="w-4 h-4 flex-shrink-0" /> {q.company}</div>}
                   </div>
                   {q.message && (
                     <p className="text-sm text-gray-300 bg-gray-800 rounded-xl p-4 whitespace-pre-wrap">{q.message}</p>
@@ -140,6 +160,7 @@ const AdminQuotes = () => {
                     <button
                       onClick={() => deleteQuote(q.id)}
                       className="p-2 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                      aria-label="Delete quote"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
