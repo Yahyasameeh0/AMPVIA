@@ -31,9 +31,9 @@ const PrivacyPolicyPage      = lazy(() => import('./pages/PrivacyPolicyPage'));
 const TermsPage              = lazy(() => import('./pages/TermsPage'));
 const QualityStandardsPage   = lazy(() => import('./pages/QualityStandardsPage'));
 
-const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
-const AdminQuotes    = lazy(() => import('./pages/admin/AdminQuotes'));
-const AdminProducts  = lazy(() => import('./pages/admin/AdminProducts'));
+const AdminDashboard    = lazy(() => import('./pages/admin/AdminDashboard'));
+const AdminQuotes       = lazy(() => import('./pages/admin/AdminQuotes'));
+const AdminProducts     = lazy(() => import('./pages/admin/AdminProducts'));
 const AdminProjectsPage = lazy(() => import('./pages/admin/AdminProjects'));
 
 const PageLoader = () => (
@@ -123,26 +123,26 @@ function PublicLayout() {
   );
 }
 
-function AdminSection() {
-  return (
-    <Suspense fallback={<AdminLoader />}>
-      <Routes>
-        <Route path="login"   element={<AdminLoginPage />} />
-        <Route path="/*"      element={<AdminLayout />}>
-          <Route index         element={<AdminDashboard />} />
-          <Route path="quotes"   element={<AdminQuotes />} />
-          <Route path="products" element={<AdminProducts />} />
-          <Route path="projects" element={<AdminProjectsPage />} />
-        </Route>
-      </Routes>
-    </Suspense>
-  );
-}
-
 function AppRouter() {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith('/admin');
-  if (isAdmin) return <AdminSection />;
+
+  if (isAdmin) {
+    return (
+      <Suspense fallback={<AdminLoader />}>
+        <Routes>
+          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin"       element={<AdminLayout />}>
+            <Route index              element={<AdminDashboard />} />
+            <Route path="quotes"     element={<AdminQuotes />} />
+            <Route path="products"   element={<AdminProducts />} />
+            <Route path="projects"   element={<AdminProjectsPage />} />
+          </Route>
+        </Routes>
+      </Suspense>
+    );
+  }
+
   return <PublicLayout />;
 }
 

@@ -36,8 +36,15 @@ export const AdminAuthProvider = ({ children }: { children: ReactNode }) => {
         body: { email, password },
       });
 
-      if (error || !data?.ok) {
-        return { ok: false, error: data?.error || 'Invalid credentials' };
+      if (error) {
+        const msg = (data as { error?: string } | null)?.error
+          || error.message
+          || 'Invalid credentials';
+        return { ok: false, error: msg };
+      }
+
+      if (!data?.ok) {
+        return { ok: false, error: (data?.error as string) || 'Invalid credentials' };
       }
 
       const user: AdminUser = { id: data.user.id, email: data.user.email, name: data.user.name };
