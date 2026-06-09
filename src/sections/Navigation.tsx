@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X, Search, ShoppingBag, Moon, Sun, ChevronDown, MessageSquare, Hop as Home, Zap, Building2, Phone } from 'lucide-react';
+import { Menu, X, Search, ShoppingBag, Moon, Sun, ChevronDown, MessageSquare, Hop as Home, Zap, Building2, Phone, Heart } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
 import { useDark } from '../context/DarkContext';
 import SearchModal from '../components/SearchModal';
 
@@ -50,6 +51,7 @@ const Navigation = ({ scrollY }: NavigationProps) => {
   const [megaOpen, setMegaOpen] = useState<string | null>(null);
   const megaTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const { count, open: openCart } = useCart();
+  const { count: wishlistCount, open: openWishlist } = useWishlist();
   const { dark, toggle } = useDark();
   const location = useLocation();
 
@@ -215,6 +217,15 @@ const Navigation = ({ scrollY }: NavigationProps) => {
 
             <button onClick={toggle} data-hover className={iconBtn} aria-label="Toggle dark mode">
               {dark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
+
+            <button onClick={openWishlist} data-hover className={`${iconBtn} relative`} aria-label="Wishlist">
+              <Heart className={`w-5 h-5 ${wishlistCount > 0 ? 'fill-crimson text-crimson' : ''}`} />
+              {wishlistCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-crimson text-white text-[10px] rounded-full flex items-center justify-center font-bold animate-scale-in">
+                  {wishlistCount > 9 ? '9+' : wishlistCount}
+                </span>
+              )}
             </button>
 
             <button onClick={openCart} data-hover className={`${iconBtn} relative`} aria-label="Cart">

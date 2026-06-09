@@ -4,6 +4,8 @@ import { CartProvider } from './context/CartContext';
 import { DarkProvider } from './context/DarkContext';
 import { AdminAuthProvider } from './context/AdminAuthContext';
 import { ToastProvider } from './context/ToastContext';
+import { CompareProvider } from './context/CompareContext';
+import { WishlistProvider } from './context/WishlistContext';
 import Navigation from './sections/Navigation';
 import Footer from './sections/Footer';
 import Cursor from './components/Cursor';
@@ -11,6 +13,9 @@ import Loader from './components/Loader';
 import ScrollProgress from './components/ScrollProgress';
 import CartDrawer from './components/CartDrawer';
 import FloatingButtons from './components/FloatingButtons';
+import CompareBar from './components/CompareBar';
+import CompareModal from './components/CompareModal';
+import WishlistDrawer from './components/WishlistDrawer';
 import NotFoundPage from './pages/NotFoundPage';
 import AdminLayout from './pages/admin/AdminLayout';
 import AdminLoginPage from './pages/AdminLoginPage';
@@ -88,6 +93,9 @@ function PublicLayout() {
       <ScrollProgress />
       {!loaded && <Loader onDone={() => setLoaded(true)} />}
       <CartDrawer />
+      <WishlistDrawer />
+      <CompareBar />
+      <CompareModal />
       <FloatingButtons />
 
       <div
@@ -150,13 +158,17 @@ function App() {
   return (
     <DarkProvider>
       <CartProvider>
-        <AdminAuthProvider>
-          <ToastProvider>
-            <Router>
-              <AppRouter />
-            </Router>
-          </ToastProvider>
-        </AdminAuthProvider>
+        <CompareProvider>
+          <WishlistProvider>
+            <AdminAuthProvider>
+              <ToastProvider>
+                <Router>
+                  <AppRouter />
+                </Router>
+              </ToastProvider>
+            </AdminAuthProvider>
+          </WishlistProvider>
+        </CompareProvider>
       </CartProvider>
     </DarkProvider>
   );
