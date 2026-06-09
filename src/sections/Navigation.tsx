@@ -57,12 +57,13 @@ const Navigation = ({ scrollY }: NavigationProps) => {
 
   const isScrolled = scrollY > 50;
   const isHome = location.pathname === '/';
+  const hasDarkHero = isHome;
 
-  const textColor = isScrolled
-    ? 'text-crimson-dark dark:text-white'
-    : 'text-white';
+  const textColor = hasDarkHero && !isScrolled
+    ? 'text-white'
+    : 'text-crimson-dark dark:text-white';
 
-  const iconBtn = `p-2 rounded-full transition-all duration-300 hover:bg-black/10 dark:hover:bg-white/10 ${textColor}`;
+  const iconBtn = `p-2 rounded-full transition-all duration-300 ${hasDarkHero && !isScrolled ? 'hover:bg-white/10' : 'hover:bg-black/10 dark:hover:bg-white/10'} ${textColor}`;
 
   const closeMobileMenu = () => setMenuOpen(false);
 
@@ -105,7 +106,9 @@ const Navigation = ({ scrollY }: NavigationProps) => {
       <nav className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 custom-expo ${
         isScrolled
           ? 'w-[95%] max-w-6xl nav-glass shadow-card rounded-full py-3 px-6'
-          : 'w-full max-w-7xl py-4 px-6 bg-transparent'
+          : hasDarkHero
+            ? 'w-full max-w-7xl py-4 px-6 bg-transparent'
+            : 'w-[95%] max-w-6xl nav-glass shadow-soft rounded-full py-3 px-6'
       }`}>
         {/* Accent line */}
         {isScrolled && (
